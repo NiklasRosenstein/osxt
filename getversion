@@ -19,7 +19,7 @@
 
 tempdir="/tmp/$RANDOM.$RANDOM"
 username="$(id -u -nr $(id -u))"
-sudo ./install.py "$1" "$tempdir" --owner "$username" --no-sdk --quiet
+./install.py "$1" "$tempdir" --owner "$username" --no-sdk --quiet
 echo "$("$tempdir/Library/Developer/CommandLineTools/usr/bin/clang" --version)"
-sudo rm -r "$tempdir"
+rm -r "$tempdir"
 
