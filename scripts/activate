@@ -1,0 +1,30 @@
+#!/bin/bash
+#
+# Activate Mac OS X Command Line Tools in the current shell.
+# Copyright (C) 2014 Niklas Rosenstein
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+
+ABSDIR=$(pwd)/$(dirname ${BASH_SOURCE[0]})
+TOOLS="$ABSDIR/Library/Developer/CommandLineTools/usr"
+USR="$ABSDIR/usr"
+INCLUDE_BASE="$TOOLS/include:$USR/include"
+
+export PATH="$TOOLS/bin:$PATH"
+export LD_LIBRARY_PATH="$TOOLS/lib:$USR/lib:$LD_LIBRARY_PATH"
+export C_INCLUDE_PATH="$INCLUDE_BASE:$USR/include:$C_INCLUDE_PATH"
+export CPLUS_INCLUDE_PATH="$INCLUDE_BASE:$USR/include/c++/*:$CPLUS_INCLUDE_PATH"
+export OBJC_INCLUDE_PATH="$INCLUDE_BASE:$OBJC_INCLUDE_PATH"
+export OBJCPLUS_INCLUDE_PATH="$INCLUDE_BASE:$USR/include/objc:$OBJCPLUS_INCLUDE_PATH"
