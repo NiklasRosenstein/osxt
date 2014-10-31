@@ -1,43 +1,17 @@
-XCode - Local CLTools Installation
-==================================
+# XCode CLTools Installer
 
-This repository contains a script to install the XCode CommandLine Tools
-into a specific directory. The script must be run as superuser because
-unpacking the Mac OS SDK contains files that can not be extracted without
-root permissions.
+Welcome! This repository contains a script to install the XCode CommandLine Tools into a directory of your choice, including a script to activate the tools in your terminal.
 
-    sudo ./install.py \
-        ~/Downloads/command_line_tools_os_x_mavericks_for_xcode__late_october_2013.dmg \
-        ~/CLTools/Clang-5.0 \
-        --owner niklas
+Check out the [wiki](https://github.com/NiklasRosenstein/xcode-local-cltools/wiki) for more information.
 
-After it has completed, you can activate the CLTools.
+## Installation
 
-    source ~/CLTools/Clang-5.0/activate
+1. Download an XCode CommandLine Tools Disk Image File from the [Apple Developer Downloads](https://developer.apple.com/downloads/index.action) page
+2. Run `sudo ./install.py <image-filename.dmg> <dest-folder>`
+3. Use `source <dest-folder>/activate` to activate the CommandLine Tools in the terminal
 
------
+## Links
 
-    usage: install.py [-h] [-o OWNER] [-f FORCE] archive dest
+- [Apple Download Center](https://developer.apple.com/downloads/index.action)
 
-    Install Mac OS Command Line Tools to a specific directory. Note that the
-    script must be run as superuser to unpack all files from the Mac OS X SDK
-    without problems. The script will exit immediately if not run as superuser.
-
-    positional arguments:
-      archive               The archive that contains the Command Line Tools which
-                            must be a *.dmg file.
-      dest                  The destination output folder. The Command Line Tools
-                            will be installed to this folder and a script to
-                            activate the tools will be put there as well.
-
-    optional arguments:
-      -h, --help            show this help message and exit
-      -o OWNER, --owner OWNER
-                            The new owner of the expanded files. Since you need to
-                            call this script as superuser, the it can not
-                            determine by itself what user you are.
-      -f FORCE, --force FORCE
-                            Force overwrite if the directory already exists.
-                            Otherwise, you will be prompted in the console.
-
-__Copyright (C) 2014 Niklas Rosenstein__
+_Copyright (C) 2014 Niklas Rosenstein_
