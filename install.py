@@ -26,8 +26,9 @@ cwd = os.getcwd()
 
 parser = argparse.ArgumentParser(description='''
     Install Mac OS Command Line Tools to a specific directory. Note that
-    you should run this command as superuser, otherwise there will be
-    trouble unpacking the Mac OS SDK from the archive.''')
+    the script must be run as superuser to unpack all files from the Mac
+    OS X SDK without problems. The script will exit immediately if not
+    run as superuser.''')
 parser.add_argument('archive', help='''The archive that contains the Command
     Line Tools which must be a *.dmg file.''')
 parser.add_argument('dest', help='''The destination output folder. The
