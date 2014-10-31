@@ -17,7 +17,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-ABSDIR=$(pwd)/$(dirname ${BASH_SOURCE[0]})
+ABSDIR=$(dirname ${BASH_SOURCE[0]})
 TOOLS="$ABSDIR/Library/Developer/CommandLineTools/usr"
 USR="$ABSDIR/usr"
 INCLUDE_BASE="$TOOLS/include:$USR/include"

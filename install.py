@@ -238,16 +238,16 @@ def main():
         extract_pkg_payload(cltools, args.dest)
         extract_pkg_payload(sdk, args.dest)
 
-    # Own the complete folder.
-    print("changing owner of extracted files to", args.owner)
-    chown(args.dest, uid, gid)
-
     # Copy the activation script to the destination directory.
     script = os.path.join(os.path.dirname(__file__), 'scripts', 'activate')
     if os.path.isfile(script):
         call('cp', script, os.path.join(args.dest, 'activate'))
     else:
         print('Warning: activate script could not be copied')
+
+    # Own the complete folder.
+    print("changing owner of extracted files to", args.owner)
+    chown(args.dest, uid, gid)
 
     return 0
 
