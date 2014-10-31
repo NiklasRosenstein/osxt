@@ -322,6 +322,8 @@ def detect_packages(directory, options):
     # required files using regular expressions.
     pkgs = glob.glob(os.path.join(directory, '*.pkg'))
     cltools_pkg = find_in_files(pkgs, 'cltools.*')
+    if not cltools_pkg:
+        cltools_pkg = find_in_files(pkgs, 'developertoolscli.*')
     sdk_pkg = find_in_files(pkgs, '.*sdk.*')
 
     # If either of them could not be found, ask the user.
