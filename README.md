@@ -11,7 +11,9 @@ root permissions.
         ~/CLTools/Clang-5.0 \
         --owner niklas
 
-After it has completed, you can activate the CLTools (**todo #2**).
+After it has completed, you can activate the CLTools (**todo [#2]**).
+
+[#2]: https://github.com/NiklasRosenstein/xcode-local-cltools/issues/2
 
     source ~/CLTools/Clang-5.0/activate
 
