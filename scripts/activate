@@ -18,13 +18,31 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 ABSDIR=$(dirname ${BASH_SOURCE[0]})
-TOOLS="$ABSDIR/Library/Developer/CommandLineTools/usr"
-USR="$ABSDIR/usr"
-INCLUDE_BASE="$TOOLS/include:$USR/include"
 
-export PATH="$TOOLS/bin:$PATH"
-export LD_LIBRARY_PATH="$TOOLS/lib:$USR/lib:$LD_LIBRARY_PATH"
+# In older versions of the CLTools, this path contained even
+# the binaries, newer versions contain the libraries and includes
+# here.
+USR="$ABSDIR/usr"
+
+# Determine the path to the usr/ directory that contains
+# the binaries. The path differs between different versions
+# of the CLTools.
+USR_TOOLS="$ABSDIR/Library/Developer/CommandLineTools/usr"
+if [ ! -e "$USR_TOOLS/bin/clang" ]; then
+    USR_TOOLS="$USR"
+fi
+
+# Export the new binary path.
+export CLTOOLS_BIN="$USR_TOOLS/bin"
+export PATH="$CLTOOLS_BIN:$PATH"
+
+# The include path for all languages.
+INCLUDE_BASE="$USR_TOOLS/include:$USR/include"
+
+# Export the new library and include paths.
+export LD_LIBRARY_PATH="$USR_TOOLS/lib:$USR/lib:$LD_LIBRARY_PATH"
 export C_INCLUDE_PATH="$INCLUDE_BASE:$USR/include:$C_INCLUDE_PATH"
 export CPLUS_INCLUDE_PATH="$INCLUDE_BASE:$(echo $USR/include/c++/*):$CPLUS_INCLUDE_PATH"
 export OBJC_INCLUDE_PATH="$INCLUDE_BASE:$OBJC_INCLUDE_PATH"
 export OBJCPLUS_INCLUDE_PATH="$INCLUDE_BASE:$USR/include/objc:$OBJCPLUS_INCLUDE_PATH"
+

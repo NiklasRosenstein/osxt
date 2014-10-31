@@ -19,7 +19,12 @@
 
 tempdir="/tmp/$RANDOM.$RANDOM"
 username="$(id -u -nr $(id -u))"
-./install.py "$1" "$tempdir" --owner "$username" --no-sdk --quiet
-echo "$("$tempdir/Library/Developer/CommandLineTools/usr/bin/clang" --version)"
-rm -r "$tempdir"
 
+./install.py "$1" "$tempdir" --owner "$username" --no-sdk --quiet
+
+source "$tempdir/activate"
+"$CLTOOLS_BIN/clang" --version
+
+if [ -z "$1" ]; then
+    rm -r "$tempdir"
+fi
