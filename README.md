@@ -7,7 +7,7 @@ Check out the [wiki](https://github.com/NiklasRosenstein/xcode-local-cltools/wik
 ## Installation
 
 1. Download an XCode CommandLine Tools Disk Image File from the [Apple Developer Downloads](https://developer.apple.com/downloads/index.action) page
-2. Run `sudo ./install.py <image-filename.dmg> <dest-folder>`
+2. Run `sudo ./install <image-filename.dmg> <dest-folder>`
 3. Use `source <dest-folder>/activate` to activate the CommandLine Tools in the terminal
 
 ## Links
