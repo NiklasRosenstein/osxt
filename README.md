@@ -33,7 +33,10 @@ in your terminal.
 
 ## Compiler Versions
 
-Here's a list about which compiler version you can find in which package of the XCode Command Line Tools.
+Here's a list about which compiler version you can find in which package of the
+XCode Command Line Tools and for which versions of OSX the tools used to be
+available. Usually you can still use old command-line tools on newer versions
+of OSX using the approach encouraged by this repository.
 
 __Clang 5.0__
 
@@ -44,6 +47,10 @@ __Clang 5.1__
 
 - March 10, 2014 (Mavericks, Mountain Lion) (clang-503.0.38)
 - April 10, 2014 (Mavericks, Mountain Lion) (clang-503.0.40)
+
+__Clang 6.0__
+
+- September 02, 2014 (Mavericks) (clang-600.0.51)
 
 __Todo__
 
