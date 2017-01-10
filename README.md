@@ -1,28 +1,67 @@
 # XCode CLTools Installer
 
-Welcome! This repository contains a script to install the XCode CommandLine Tools into a directory of your choice, including a script to activate the tools in your terminal.
+Welcome! This repository contains a script to install the XCode CommandLine
+Tools into a directory of your choice, including a script to activate the tools
+in your terminal.
 
-Check out the [wiki](https://github.com/NiklasRosenstein/xcode-local-cltools/wiki) for more information.
+    $ clang --version
+    Apple LLVM version 8.0.0 (clang-800.0.42.1)
+    Target: x86_64-apple-darwin16.0.0
+    Thread model: posix
+    InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
+    $ source OSX10.09-2014-09-02/activate
+    $ clang --version
+    Apple LLVM version 6.0 (clang-600.0.51) (based on LLVM 3.5svn)
+    Target: x86_64-apple-darwin16.0.0
+    Thread model: posix
+
 
 ## Installation
 
-1. Download an XCode CommandLine Tools Disk Image File from the [Apple Developer Downloads](https://developer.apple.com/downloads/index.action) page
-2. Run `sudo ./install <image-filename.dmg> <dest-folder>`
-3. Use `source <dest-folder>/activate` to activate the CommandLine Tools in the terminal
+1. Clone this repository (`git clone https://github.com/NiklasRosenstein/xcode-cltools-installer.git`)
+2. Download an XCode CL-Tools Disk Image from the [Apple Developer Downloads] page.
+2. Use `sudo ./install <image.dmg> <dest>` to install the developer tools
+3. Activate the tools with `source <dest>/activate`
+
+[Apple Developer Downloads]: https://developer.apple.com/downloads/index.action
+
 
 ## Links
 
-- [Apple Download Center](https://developer.apple.com/downloads/index.action)
+- [Apple Developer Downloads]
+
+
+## Compiler Versions
+
+Here's a list about which compiler version you can find in which package of the XCode Command Line Tools.
+
+__Clang 5.0__
+
+- September 16, 2013 (Mountain Lion) (clang-500.2.75)
+- October 22, 2013 (Mavericks, Mountain Lion) (clang-500.2.79)
+
+__Clang 5.1__
+
+- March 10, 2014 (Mavericks, Mountain Lion) (clang-503.0.38)
+- April 10, 2014 (Mavericks, Mountain Lion) (clang-503.0.40)
+
+__Todo__
+
+All images since *July 07, 2014* still need to be analysed.
+
 
 ## Changelog
 
-### v1.0.1
+__v1.0.1__
 
 - Fix newer DMGs where the `.pkg` files are not actually files but directories
   (see #9 and #5)
 
-### v1.0.0
+__v1.0.0__
 
 - Initial release
 
-_Copyright (C) 2014-2017 Niklas Rosenstein_
+---
+
+<p align="center"><i>Copyright (C) 2014-2017 Niklas Rosenstein</i></p>
+
