@@ -14,4 +14,15 @@ Check out the [wiki](https://github.com/NiklasRosenstein/xcode-local-cltools/wik
 
 - [Apple Download Center](https://developer.apple.com/downloads/index.action)
 
-_Copyright (C) 2014 Niklas Rosenstein_
+## Changelog
+
+### v1.0.1
+
+- Fix newer DMGs where the `.pkg` files are not actually files but directories
+  (see #9 and #5)
+
+### v1.0.0
+
+- Initial release
+
+_Copyright (C) 2014-2017 Niklas Rosenstein_

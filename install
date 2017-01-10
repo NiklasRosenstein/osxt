@@ -351,15 +351,24 @@ def install_pkg(pkg_filename, dest):
     unzipped into the folder *dest*. A temporary folder needs to be
     created to unpack the *pkg_filename* first.
 
+    .. note:: Sometimes, *pkg_filename* is a directory instead. If that
+        is the case, the directory will not be copied into a temporary
+        directory.
+
     :raise RuntimeError: if the Payload file does not exist in the
         ``*.pkg` archive.
     '''
 
-    with TempDir() as tmpdir:
-        # Unpack the PKG archive and get the path to the Payload file.
-        unpack_pkg(pkg_filename, tmpdir)
-        payload_filename = os.path.join(tmpdir, 'Payload')
+    tempdir = None
+    try:
+        if os.path.isfile(pkg_filename):
+            tempdir = TempDir()
+            source_dir = tempdir.__enter__()
+            unpack_pkg(pkg_filename, source_dir)
+        else:
+            source_dir = pkg_filename
 
+        payload_filename = os.path.join(source_dir, 'Payload')
         # If the Payload file does not exist, raise an error.
         if not os.path.isfile(payload_filename):
             raise RuntimeError("'%s' contains no Payload" % pkg_filename)
@@ -371,6 +380,10 @@ def install_pkg(pkg_filename, dest):
             ['gunzip', '-dc'],
             ['cpio', '-i'],
             cwd=dest)
+    finally:
+        if tempdir:
+            tempdir.__exit__()
+
 
 def main():
     # Parse the command-line arguments.
