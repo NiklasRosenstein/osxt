@@ -70,6 +70,8 @@ __v1.0.2__
 - Add `--debug-pkg` argument
 - Removed `--no-sdk` and `--no-cltools` command-line options, all components
   of the Disk Image will now be unpacked into the target folder
+- If `--owner` is not specified, `./install` will now automatically figure
+  the user and group ID of the user that run the command with `sudo`
 
 __v1.0.1__
 

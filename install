@@ -420,6 +420,9 @@ def main():
     if os.getuid() != 0:
         exit('run as superuser if you want to install the SDK')
 
+    if not args.owner:
+        args.owner = System.getoutput('logname').strip()
+
     # Determine the user and group ID of the new owner.
     if args.owner:
         try:
