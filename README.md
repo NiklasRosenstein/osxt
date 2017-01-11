@@ -16,14 +16,20 @@ in your terminal.
     Thread model: posix
 
 
-## Installation
+## Usage
 
-1. Clone this repository (`git clone https://github.com/NiklasRosenstein/xcode-cltools-installer.git`)
-2. Download an XCode CL-Tools Disk Image from the [Apple Developer Downloads] page.
-2. Use `sudo ./install <image.dmg> <dest>` to install the developer tools
-3. Activate the tools with `source <dest>/activate`
+1. Clone this repository (`git clone --recursive https://github.com/NiklasRosenstein/xcode-cltools-installer.git`)
+2. Build `pbzx` which is required to unpack later Disk Images (from OSX 10.10) (see below)
+3. Download an XCode CL-Tools Disk Image from the [Apple Developer Downloads] page.
+4. Use `sudo ./install <image.dmg> <dest>` to install the developer tools
+5. Activate the tools with `source <dest>/activate`
 
-[Apple Developer Downloads]: https://developer.apple.com/downloads/index.action
+To build [pbzx], run
+
+    clang -llzma -lxar -I /usr/local/include pbzx/pbzx.c -o pbzx/pbzx
+
+  [Apple Developer Downloads]: https://developer.apple.com/downloads/index.action
+  [pbzx]: https://github.com/NiklasRosenstein/pbzx
 
 
 ## Links

@@ -23,6 +23,11 @@ import sys, os
 import re, glob, pipes, shutil, tempfile, argparse, subprocess
 
 DIRNAME = os.path.dirname(__file__)
+PBZX = os.path.abspath(os.path.join(DIRNAME, 'pbzx'))
+if os.path.isdir(PBZX):
+    PBZX = os.path.join(PBZX, 'pbzx')
+if not os.path.isfile(PBZX):
+    PBZX = 'pbzx'
 
 parser = argparse.ArgumentParser(description='''
     Create a local installation of the Mac OS Command Line Tools from
@@ -131,6 +136,8 @@ class System:
 
         # Print an approximate shell representation of the call.
         if self.verbose:
+            if data['cwd']:
+                print('$ cd', os.path.abspath(data['cwd']))
             print('$', ' | '.join(self.format(*c) for c in commands))
 
         # Spawn the processes, handling the first and last special.
@@ -382,13 +389,22 @@ def install_pkg(pkg_filename, dest):
         if not os.path.isfile(payload_filename):
             raise RuntimeError("'%s' contains no Payload" % pkg_filename)
 
+        # Get the magic characters of the payload to determine
+        # whether it's a pbzx file, otherwise use gzip.
+        with open(payload_filename, 'rb') as fp:
+            magic = fp.read(4)
+
+        commands = []
+        if magic == b'pbzx':
+            commands.append([PBZX, '-n', payload_filename])
+        else:
+            commands.append(['cat', payload_filename])
+            commands.append(['gunzip', '-dc'])
+        commands.append(['cpio', '-i'])
+
         # Unpack the contents of the Payload file to the
         # destination directory.
-        System.multicall(
-            ['cat', payload_filename],
-            ['gunzip', '-dc'],
-            ['cpio', '-i'],
-            cwd=dest)
+        System.multicall(*commands, cwd=dest)
     finally:
         if tempdir:
             tempdir.__exit__()
