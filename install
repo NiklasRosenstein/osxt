@@ -42,12 +42,6 @@ parser.add_argument('-o', '--owner', help='''
     The name of the new owner of the output directory and all its
     contents. This option should be specified when running as superuser
     as it can not figure out the original user name.''')
-parser.add_argument('--no-sdk', action='store_true', help='''
-    If specified, the Mac OS SDK will not be extracted from the Disk
-    Image File.''')
-parser.add_argument('--no-cltools', action='store_true', help='''
-    If specified, the Command Line Tools will not be extracted from
-    the Disk Image File.''')
 parser.add_argument('-q', '--quiet', action='store_true', help='''
     Be very quiet. Passing this option will disable the output of
     the commands that have been run and hide the command arguments.''')
@@ -337,20 +331,24 @@ def detect_packages(directory, options):
     # Find all *.pkg files, and from this list, match the
     # required files using regular expressions.
     pkgs = glob.glob(os.path.join(directory, '*.pkg'))
-    cltools_pkg = find_in_files(pkgs, 'cltools.*')
-    if not cltools_pkg:
-        cltools_pkg = find_in_files(pkgs, 'developertoolscli.*')
-    sdk_pkg = find_in_files(pkgs, '.*sdk.*')
 
+    # Disabled for now, apple seems to add and/or rename the PKG
+    # from time to time. For now we'll just have all PKG files to
+    # be unpacked.
+
+    #cltools_pkg = find_in_files(pkgs, 'cltools.*')
+    #if not cltools_pkg:
+    #    cltools_pkg = find_in_files(pkgs, 'developertoolscli.*')
+    #sdk_pkg = find_in_files(pkgs, '.*sdk.*')
     # If either of them could not be found, ask the user.
-    if not cltools_pkg and not options.no_cltools:
-        print('The CLTools Package could not be found.')
-        cltools_pkg = select_file(pkgs)
-    if not sdk_pkg and not options.no_sdk:
-        print('The Mac OSX SDK package could not be found.')
-        sdk_pkg = select_file(pkgs)
+    #if not cltools_pkg and not options.no_cltools:
+    #    print('The CLTools Package could not be found.')
+    #    cltools_pkg = select_file(pkgs)
+    #if not sdk_pkg and not options.no_sdk:
+    #    print('The Mac OSX SDK package could not be found.')
+    #    sdk_pkg = select_file(pkgs)
 
-    return {'cltools': cltools_pkg, 'sdk': sdk_pkg}
+    return pkgs
 
 def unpack_pkg(pkg_filename, dest):
     '''
@@ -419,7 +417,7 @@ def main():
     # If the Mac OS SDK should be installed, this should be run
     # as superuser. Otherwise, some files might not be extracted
     # properly from the archive.
-    if not args.no_sdk and os.getuid() != 0:
+    if os.getuid() != 0:
         exit('run as superuser if you want to install the SDK')
 
     # Determine the user and group ID of the new owner.
@@ -490,13 +488,8 @@ def main():
             finally:
                 os.chdir(olddir)
 
-        # Now that we have detected the packages which are to
-        # be installed, we can safely install them to the output
-        # folder.
-        if not args.no_sdk:
-            install_pkg(packages['sdk'], args.dest)
-        if not args.no_cltools:
-            install_pkg(packages['cltools'], args.dest)
+        for pkg in packages:
+            install_pkg(pkg, args.dest)
 
     # Copy the activate script to the destination directory.
     activate_script = os.path.join(DIRNAME, 'scripts', 'activate')

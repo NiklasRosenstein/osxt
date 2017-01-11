@@ -68,6 +68,8 @@ All images since *July 07, 2014* still need to be analysed.
 __v1.0.2__
 
 - Add `--debug-pkg` argument
+- Removed `--no-sdk` and `--no-cltools` command-line options, all components
+  of the Disk Image will now be unpacked into the target folder
 
 __v1.0.1__
 
