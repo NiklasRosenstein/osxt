@@ -59,6 +59,10 @@ All images since *July 07, 2014* still need to be analysed.
 
 ## Changelog
 
+__v1.0.2__
+
+- Add `--debug-pkg` argument
+
 __v1.0.1__
 
 - Fix newer DMGs where the `.pkg` files are not actually files but directories

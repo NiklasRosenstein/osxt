@@ -46,6 +46,9 @@ parser.add_argument('--no-cltools', action='store_true', help='''
 parser.add_argument('-q', '--quiet', action='store_true', help='''
     Be very quiet. Passing this option will disable the output of
     the commands that have been run and hide the command arguments.''')
+parser.add_argument('--debug-pkg', action='store_true', help='''Enter a bash
+    console after the disk image was mounted and the contained .pkg file was
+    unpacked.''')
 
 singleton = lambda x: x()
 
@@ -56,7 +59,13 @@ class System:
     '''
 
     class ExitError(Exception):
-        pass
+
+        def __init__(self, args, code):
+            self.args = args
+            self.code = code
+
+        def __str__(self):
+            return '{}: {}'.format(self.args[0], self.code)
 
     verbose = True
 
@@ -453,6 +462,17 @@ def main():
             tmpdir = context.enter(TempDir())
             unpack_pkg(filename, tmpdir)
             packages = detect_packages(tmpdir, args)
+
+        if args.debug_pkg:
+            olddir = os.getcwd()
+            os.chdir(tmpdir)
+            try:
+                System.call('bash')
+            except System.ExitError as exc:
+                print('aborted after --debug-pkg')
+                return exc.code
+            finally:
+                os.chdir(olddir)
 
         # Now that we have detected the packages which are to
         # be installed, we can safely install them to the output
