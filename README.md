@@ -9,7 +9,7 @@ in your terminal.
     Target: x86_64-apple-darwin16.0.0
     Thread model: posix
     InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
-    $ source OSX10.09-2014-09-02/activate
+    $ source xcode6.0-10.09-2014.09.02.dmg/activate
     $ clang --version
     Apple LLVM version 6.0 (clang-600.0.51) (based on LLVM 3.5svn)
     Target: x86_64-apple-darwin16.0.0
@@ -30,38 +30,13 @@ To build [pbzx], run
 
   [Apple Developer Downloads]: https://developer.apple.com/downloads/index.action
   [pbzx]: https://github.com/NiklasRosenstein/pbzx
+  [XCode Version Table]: https://github.com/NiklasRosenstein/xcode-cltools-installer/wiki/XCode-Versions
 
 
 ## Links
 
 - [Apple Developer Downloads]
-
-
-## Compiler Versions
-
-Here's a list about which compiler version you can find in which package of the
-XCode Command Line Tools and for which versions of OSX the tools used to be
-available. Usually you can still use old command-line tools on newer versions
-of OSX using the approach encouraged by this repository.
-
-__Clang 5.0__
-
-- September 16, 2013 (Mountain Lion) (clang-500.2.75)
-- October 22, 2013 (Mavericks, Mountain Lion) (clang-500.2.79)
-
-__Clang 5.1__
-
-- March 10, 2014 (Mavericks, Mountain Lion) (clang-503.0.38)
-- April 10, 2014 (Mavericks, Mountain Lion) (clang-503.0.40)
-
-__Clang 6.0__
-
-- September 02, 2014 (Mavericks) (clang-600.0.51)
-
-__Todo__
-
-All images since *July 07, 2014* still need to be analysed.
-
+- [XCode Version Table]
 
 ## Changelog
 
