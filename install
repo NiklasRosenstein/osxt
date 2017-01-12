@@ -373,11 +373,9 @@ def install_pkg(pkg_filename, dest):
         ``*.pkg` archive.
     '''
 
-    tempdir = None
-    try:
+    with MultiContext() as context:
         if os.path.isfile(pkg_filename):
-            tempdir = TempDir()
-            source_dir = tempdir.__enter__()
+            source_dir = context.enter(TempDir())
             unpack_pkg(pkg_filename, source_dir)
         else:
             source_dir = pkg_filename
@@ -403,9 +401,6 @@ def install_pkg(pkg_filename, dest):
         # Unpack the contents of the Payload file to the
         # destination directory.
         System.multicall(*commands, cwd=dest)
-    finally:
-        if tempdir:
-            tempdir.__exit__()
 
 
 def main():
