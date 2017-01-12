@@ -418,7 +418,7 @@ def main():
     # as superuser. Otherwise, some files might not be extracted
     # properly from the archive.
     if os.getuid() != 0:
-        exit('run as superuser if you want to install the SDK')
+        print('warning: not run as superuser, some files might not get extracted')
 
     if not args.owner:
         args.owner = System.getoutput('logname').strip()

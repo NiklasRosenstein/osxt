@@ -47,6 +47,11 @@ in your terminal.
 
 ## Changelog
 
+__v1.0.3__
+
+- Using `sudo` for `./install` is no longer a requirement, but will lead to
+  some files not being extracted (usually man page files).
+
 __v1.0.2__
 
 - Add `--debug-pkg` argument
