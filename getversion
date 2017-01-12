@@ -20,11 +20,9 @@
 tempdir="/tmp/$RANDOM.$RANDOM"
 username="$(id -u -nr $(id -u))"
 
-./install.py "$1" "$tempdir" --owner "$username" --no-sdk --quiet
+# TODO: Currently this extracts alls files, but we only need the clang binary.
+./install "$1" "$tempdir"
 
 source "$tempdir/activate"
-"$CLTOOLS_BIN/clang" --version
-
-if [ -z "$1" ]; then
-    rm -r "$tempdir"
-fi
+clang --version
+rm -rf "$tempdir"

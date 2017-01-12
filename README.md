@@ -51,6 +51,7 @@ __v1.0.3__
 
 - Using `sudo` for `./install` is no longer a requirement, but will lead to
   some files not being extracted (usually man page files).
+- Fix `./getversion` -- but still extracts full disk image
 
 __v1.0.2__
 
