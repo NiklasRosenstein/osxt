@@ -15,30 +15,31 @@ in your terminal.
     Target: x86_64-apple-darwin16.0.0
     Thread model: posix
 
-
 ## Usage
 
-1. Clone this repository including submodules.
+You node [Node.py] installed. Then you can install the XCode CLTools Installer
+from GitHub using Node.py's package manager PPYM.
 
-        git clone --recursive https://github.com/NiklasRosenstein/xcode-cltools-installer.git
+    $ sudo pip install node.py
+    $ ppym install --global git+https://github.com/NiklasRosenstein/xcode-cltools-installer.git
 
-2. Build `pbzx` which is required to unpack later Disk Images (from OSX 10.10).
+The script requires [pbzx], but it will be downloaded automatically if it
+is not available. Now you only have to grab yourself an XCode CLTools Disk
+Image File from the [Apple Developer Downloads] page. You might want to add
+sudo if you also want manpage files.
 
-       clang -llzma -lxar -I /usr/local/include pbzx/pbzx.c -o pbzx/pbzx
+    $ xcode-cltools-installer install <image.dmg> <dest>
 
-3. Download an XCode CL-Tools Disk Image from the [Apple Developer Downloads] page.
+After all the files have been extracted, you can activate the command-line
+tools using the `activate` script that was placed into the `<dest>` directory.
 
-4. Use `sudo ./install <image.dmg> <dest>` to install the developer tools.
-
-    > Note: if you do not use `sudo`, some files might not be extracted
-    > (usually man pages).
-
-5. Activate the tools with `source <dest>/activate`.
+    $ source <dest>/activate
+    $ clang --version
 
   [Apple Developer Downloads]: https://developer.apple.com/downloads/index.action
-  [pbzx]: https://github.com/NiklasRosenstein/pbzx
   [XCode Version Table]: https://github.com/NiklasRosenstein/xcode-cltools-installer/wiki/XCode-Versions
-
+  [Node.py]: https://github.com/nodepy/nodepy
+  [pbzx]: https://github.com/NiklasRosenstein/pbzx
 
 ## Links
 
@@ -52,6 +53,8 @@ __v1.0.3__
 - Using `sudo` for `./install` is no longer a requirement, but will lead to
   some files not being extracted (usually man page files).
 - Fix `./getversion` -- but still extracts full disk image
+- Update command-line interface with Click
+- Must now be used with [Node.py](https://github.com/nodepy/nodepy)
 
 __v1.0.2__
 
