@@ -75,7 +75,7 @@ def install(dmg, dest, user, debug_pkg):
     # If the Mac OS SDK should be installed, this should be run
     # as superuser. Otherwise, some files might not be extracted
     # properly from the archive.
-    if os.getuid() != 0:
+    if os.getuid() != 0 and system.verbose:
         print('warning: not run as superuser, some files might not get extracted')
 
     if not user:
@@ -184,7 +184,6 @@ def getversion(dmg, verbose):
     clang_bin = os.path.join(dir, 'usr/bin/clang')
     if not os.path.isfile(clang_bin):
         clang_bin = os.path.join(dir, 'Library/Developer/CommandLineTools/usr/bin/clang')
-    system.call('chmod', '+x', clang_bin)
     system.call(clang_bin, '--version')
 
 

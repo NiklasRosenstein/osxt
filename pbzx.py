@@ -29,11 +29,9 @@ def find_or_install():
   os.environ['PATH'] = download_dir + os.pathsep + os.environ['PATH']
   try:
     version = system.getoutput('pbzx', '-v')
+    return
   except (OSError, system.ExitError) as exc:
     pass
-  else:
-    print(version)
-    return
 
   print('pbzx not available, downloading from', url, '...')
   fp = six.BytesIO(urlopen(url).read())
