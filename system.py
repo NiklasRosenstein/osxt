@@ -25,7 +25,7 @@ verbose = True
 
 class ExitError(Exception):
 
-    def __init__(args, code):
+    def __init__(self, args, code):
         self.args = args
         self.code = code
 

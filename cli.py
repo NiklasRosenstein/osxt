@@ -170,20 +170,24 @@ def install(dmg, dest, user, debug_pkg, extract):
 
 @main.command()
 @click.argument('dmg')
-def getversion(dmg):
+@click.option('-v', '--verbose', is_flag=True)
+def getversion(dmg, verbose):
   """
-  tempdir="/tmp/$RANDOM.$RANDOM"
-  username="$(id -u -nr $(id -u))"
-
-  # TODO: Currently this extracts alls files, but we only need the clang binary.
-  ./install "$1" "$tempdir"
-
-  source "$tempdir/activate"
-  clang --version
-  rm -rf "$tempdir"
+  Installs to a temporary directory and outputs the clang version.
   """
 
-  raise NotImplementedError
+  system.verbose = verbose
+  with installer.TempDir() as dir:
+    ret = install([dmg, dir], '--extract', '/usr/bin/clang', standalone_mode=False)
+    if ret != 0:
+        # TODO: Currently extracts all files, but we only need the clang binary.
+        print('error: extraction failed', file=sys.stderr)
+        return 1
+    clang_bin = os.path.join(dir, 'usr/bin/clang')
+    if not os.path.isfile(clang_bin):
+        clang_bin = os.path.join(dir, 'Library/Developer/CommandLineTools/usr/bin/clang')
+    system.call('chmod', '+x', clang_bin)
+    system.call(clang_bin, '--version')
 
 
 if require.main == module:

@@ -30,14 +30,14 @@ def find_or_install():
   try:
     version = system.getoutput('pbzx', '-v')
   except (OSError, system.ExitError) as exc:
-    print('pbzx not installed, downloading from', url, '...')
+    pass
   else:
     print(version)
     return
 
+  print('pbzx not available, downloading from', url, '...')
   fp = six.BytesIO(urlopen(url).read())
   archive = zipfile.ZipFile(fp)
   archive.extract('pbzx', download_dir)
   system.call('chmod', '+x', os.path.join(download_dir, 'pbzx'))
-
   print(system.getoutput('pbzx', '-v'))
