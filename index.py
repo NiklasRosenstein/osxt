@@ -204,7 +204,7 @@ def unpack_pkg(pkg_filename, dest):
 
     system.call('xar', '-C', dest, '-xf', pkg_filename)
 
-def install_pkg(pkg_filename, dest, filenames=()):
+def install_pkg(pkg_filename, dest):
     '''
     Installs the contents of a ``*.pkg`` file to the specified folder.
     More specifically, the ``Payload`` file in the package will be

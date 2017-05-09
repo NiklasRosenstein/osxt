@@ -50,9 +50,7 @@ def main():
     'This option was useful during the development, and I figured I\'d not '
     'remove them in case newer versions of the XCode Command-line Tools '
     'have yet again a different structure that needs to be debugged.')
-@click.option('--extract', multiple=True, help='One or more files to '
-    'extract. Other files will not be extracted if this option is specified.')
-def install(dmg, dest, user, debug_pkg, extract):
+def install(dmg, dest, user, debug_pkg):
     """
     Create a local installation of the Mac OS Command Line Tools from
     a Disk Image File. For installation that includes the Mac OS SDK
@@ -152,7 +150,7 @@ def install(dmg, dest, user, debug_pkg, extract):
                 os.chdir(olddir)
 
         for pkg in packages:
-            installer.install_pkg(pkg, dest, extract)
+            installer.install_pkg(pkg, dest)
 
     # Copy the activate script to the destination directory.
     activate_script = os.path.join(__directory__, 'templates', 'activate')
