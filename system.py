@@ -84,9 +84,9 @@ def multicall(*commands, **kwargs):
 
     # Read additional options for the call.
     data = {
-        'stdin': kwargs.pop('stdin', None),
-        'stdout': kwargs.pop('stdout', None),
-        'stderr': kwargs.pop('stderr', None),
+        'stdin': kwargs.pop('stdin', None if verbose else subprocess.DEVNULL),
+        'stdout': kwargs.pop('stdout', None if verbose else subprocess.DEVNULL),
+        'stderr': kwargs.pop('stderr', None if verbose else subprocess.DEVNULL),
         'cwd': kwargs.pop('cwd', None),
     }
 

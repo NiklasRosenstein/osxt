@@ -40,4 +40,4 @@ def find_or_install():
   archive = zipfile.ZipFile(fp)
   archive.extract('pbzx', download_dir)
   system.call('chmod', '+x', os.path.join(download_dir, 'pbzx'))
-  print(system.getoutput('pbzx', '-v'))
+  system.getoutput('pbzx', '-v')
