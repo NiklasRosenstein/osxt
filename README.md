@@ -15,7 +15,7 @@ normally not install on a newer version of macOS.
 2. Make sure you have [Pip] installed, otherwise run [get-pip.py].
 3. Install [Node.py] via Pip: `sudo pip install node.py`
 4. Install the XCode CLTools Installer via PPYM:
-   `ppym install --global git+https://github.com/NiklasRosenstein/xcode-cltools-installer.git`
+   `ppym install --global xcode-cltools-installer`
 
 > **Note**. For XCode Disk Image Files from version 8.0 and higher, [pbzx] is
 > needed and will be downloaded if not available. The location that XCode
