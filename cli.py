@@ -187,5 +187,14 @@ def getversion(dmg, verbose):
     system.call(clang_bin, '--version')
 
 
+@main.command()
+def getpbzx():
+    """
+    Checks if pbzx is available, otherwise download's it from GitHub.
+    """
+
+    pbzx.find_or_install()
+
+
 if require.main == module:
   main()

@@ -1,0 +1,2 @@
+tag v{VERSION}
+upgrade package.json:  "version": "{VERSION}"

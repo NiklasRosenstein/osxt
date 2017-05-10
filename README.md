@@ -1,47 +1,37 @@
-# XCode CLTools Installer
+# XCode Command-line Tools Installer
 
-Welcome! This repository contains a script to install the XCode CommandLine
-Tools into a directory of your choice, including a script to activate the tools
-in your terminal.
+The `xcode-cltools-installer` allows you to install the XCode Command-line
+Tools from a Disk Image File (`.dmg`) to a directory of your choice. This
+gives you access to all available Command-line Tools, even old ones that would
+normally not install on a newer version of macOS.
 
-    $ clang --version
-    Apple LLVM version 8.0.0 (clang-800.0.42.1)
-    Target: x86_64-apple-darwin16.0.0
-    Thread model: posix
-    InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
-    $ source xcode6.0-10.09-2014.09.02.dmg/activate
-    $ clang --version
-    Apple LLVM version 6.0 (clang-600.0.51) (based on LLVM 3.5svn)
-    Target: x86_64-apple-darwin16.0.0
-    Thread model: posix
-
-## Usage
-
-You node [Node.py] installed. Then you can install the XCode CLTools Installer
-from GitHub using Node.py's package manager PPYM.
-
-    $ sudo pip install node.py
-    $ ppym install --global git+https://github.com/NiklasRosenstein/xcode-cltools-installer.git
-
-The script requires [pbzx], but it will be downloaded automatically if it
-is not available. Now you only have to grab yourself an XCode CLTools Disk
-Image File from the [Apple Developer Downloads] page. You might want to add
-sudo if you also want manpage files.
-
-    $ xcode-cltools-installer install <image.dmg> <dest>
-
-After all the files have been extracted, you can activate the command-line
-tools using the `activate` script that was placed into the `<dest>` directory.
-
-    $ source <dest>/activate
+    $ xcode-cltools-installer install ~/Downloads/xcode8.2-10.12-2016.12.13.dmg ~/Applications/ClTools-8.2
+    $ source ~/Applications/ClTools-8.2/activate
     $ clang --version
 
-  [Apple Developer Downloads]: https://developer.apple.com/downloads/index.action
-  [XCode Version Table]: https://github.com/NiklasRosenstein/xcode-cltools-installer/wiki/XCode-Versions
+## Installation
+
+1. Make sure you have Python 2 or 3 installed on your system.
+2. Make sure you have [Pip] installed, otherwise run [get-pip.py].
+3. Install [Node.py] via Pip: `sudo pip install node.py`
+4. Install the XCode CLTools Installer via PPYM:
+   `ppym install --global git+https://github.com/NiklasRosenstein/xcode-cltools-installer.git`
+
+> **Note**. For XCode Disk Image Files from version 8.0 and higher, [pbzx] is
+> needed and will be downloaded if not available. The location that XCode
+> CLTools Installer will be installed to via PPYM must be writable by the user
+> running it (which it usually is when using `--global`) or otherwise
+> `xcode-cltools-installer getpbzx` needs to be called by the user that
+> installed it with `--root`.
+
   [Node.py]: https://github.com/nodepy/nodepy
   [pbzx]: https://github.com/NiklasRosenstein/pbzx
+  [Pip]: https://github.com/pypa/pip
+  [get-pip.py]: https://bootstrap.pypa.io/get-pip.py
+  [Apple Developer Downloads]: https://developer.apple.com/downloads/index.action
+  [XCode Version Table]: https://github.com/NiklasRosenstein/xcode-cltools-installer/wiki/XCode-Versions
 
-## Links
+## Additional Links
 
 - [Apple Developer Downloads]
 - [XCode Version Table]
@@ -50,11 +40,13 @@ tools using the `activate` script that was placed into the `<dest>` directory.
 
 __v1.0.3__
 
-- Using `sudo` for `./install` is no longer a requirement, but will lead to
-  some files not being extracted (usually man page files).
-- Fix `./getversion` -- but still extracts full disk image
-- Update command-line interface with Click
 - Must now be used with [Node.py](https://github.com/nodepy/nodepy)
+- Update command-line interface with Click
+- Using `sudo` for the `install` command is no longer a requirement, but will
+  lead to some files not being extracted (usually man page files)
+- Fix `getversion` command -- but still extracts full disk image
+- Add `getpbzx` command
+- `pbzx` will now be automatically downloaded if it is not available
 
 __v1.0.2__
 
