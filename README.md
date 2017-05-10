@@ -38,6 +38,10 @@ normally not install on a newer version of macOS.
 
 ## Changelog
 
+__v1.0.4__
+
+- Add missing `"bin"` field to `package.json`
+
 __v1.0.3__
 
 - Must now be used with [Node.py](https://github.com/nodepy/nodepy)
