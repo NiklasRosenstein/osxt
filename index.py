@@ -135,22 +135,6 @@ def dir_has_contents(directory):
     return False
 
 
-def chown_recurse(path, uid, gid):
-    '''
-    Changes the ownership of a complete directory tree to the
-    specified user and group id. Does not follow symbolic links.
-    '''
-
-    isdir = os.path.isdir(path)
-    if isdir or os.path.isfile(path):
-        os.chown(path, uid, gid)
-
-    if isdir:
-        for name in os.listdir(path):
-            full = os.path.join(path, name)
-            chown_recurse(full, uid, gid)
-
-
 def select_file(files, key=lambda x: x):
     '''
     Lets the user select a file from a list of filenames. Returns

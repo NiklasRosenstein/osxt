@@ -101,6 +101,9 @@ normally not install on a newer version of macOS.
 __v1.0.5__
 
 - Add `download` subcommand
+- Remove `index:chown_recurse()`
+- Use `chown` command instead of `chown_recurse()`
+- Add `-f` flag when using `rm -r` for the install dest directory
 
 __v1.0.4__
 

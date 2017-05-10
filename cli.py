@@ -103,7 +103,7 @@ def install(dmg, dest, user, debug_pkg):
             if not string or string not in ('yes', 'y'):
                 exit('user stop')
 
-            system.call('rm', '-r', dest)
+            system.call('rm', '-rf', dest)
             system.call('mkdir', dest)
     else:
         system.call('mkdir', '-p', dest)
@@ -161,7 +161,7 @@ def install(dmg, dest, user, debug_pkg):
 
     # Chown the complete destination directory.
     if user:
-        installer.chown_recurse(dest, uid, gid)
+        system.call('chown', '-R', user, dest)
 
     return 0
 
