@@ -84,15 +84,15 @@ normally not install on a newer version of macOS.
 | 2014/03/10 | 10.09 (Mavericks) | 5.1 | [xcode5.1-10.09-2014.03.10.dmg](http://adcdownload.apple.com/Developer_Tools/command_line_tools_os_x_mavericks_for_xcode__march_2014/commandline_tools_os_x_mavericks_for_xcode__march_2014.dmg) | clang-503.0.38 |
 | 2014/03/10 | 10.08 (Mountain Lion) | 5.1 | [xcode5.1-10.08-2014.03.10.dmg](http://adcdownload.apple.com/Developer_Tools/command_line_tools_os_x_mountain_lion_for_xcode__march_2014/commandline_tools_os_x_mountain_lion_for_xcode__march_2014.dmg) | clang-503.0.38 |
 | 2013/10/22 | 10.09 (Mavericks) | 5.0 | [xcode5.0-10.09-2013.10.22.dmg](http://adcdownload.apple.com/Developer_Tools/command_line_tools_os_x_mavericks_for_xcode__late_october_2013/command_line_tools_os_x_mavericks_for_xcode__late_october_2013.dmg) | clang-500.2.79 |
-| 2013/10/14 | 10.08 (Mountain Lion) | ?.? | xcode?.?-10.08-2013.10.14.dmg |
+| 2013/10/14 | 10.08 (Mountain Lion) | ?.? | [xcode?.?-10.08-2013.10.14.dmg](http://adcdownload.apple.com/Developer_Tools/command_line_tools_os_x_mountain_lion_for_xcode__october_2013/command_line_tools_os_x_mountain_lion_for_xcode__october_2013.dmg) |
 | 2013/09/18 | 10.08 (Mountain Lion) | 5.0 | xcode5.0-10.08-2013.09.18.dmg |
-| 2013/08/30 | 10.08 (Mountain Lion) | ?.? | xcode?.?-10.08-2013.08.30.dmg |
-| 2013/04/12 | 10.07 (Lion) | ?.? | xcode?.?-10.07-2013.04.12.dmg |
-| 2013/04/11 | 10.08 (Mountain Lion) | ?.? | xcode?.?-10.08-2013.04.11.dmg |
-| 2013/03/14 | 10.08 (Mountain Lion) | ?.? | xcode?.?-10.08-2013.03.14.dmg |
-| 2013/03/14 | 10.07 (Lion) | ?.? | xcode?.?-10.07-2013.03.14.dmg |
-| 2013/01/25 | 10.08 (Mountain Lion) | ?.? | xcode?.?-10.08-2013.01.25.dmg |
-| 2013/01/25 | 10.07 (Lion) | ?.? | xcode?.?-10.07-2013.01.25.dmg |
+| 2013/08/30 | 10.08 (Mountain Lion) | ?.? | [xcode?.?-10.08-2013.08.30.dmg](http://adcdownload.apple.com/Developer_Tools/command_line_tools_os_x_mountain_lion_for_xcode__september_2013/command_line_tools_os_x_mountain_lion_for_xcode__september_2013.dmg) |
+| 2013/04/12 | 10.07 (Lion) | ?.? | [xcode?.?-10.07-2013.04.12.dmg](http://adcdownload.apple.com/Developer_Tools/command_line_tools_os_x_lion_for_xcode__april_2013/xcode462_cltools_10_76938260a.dmg) |
+| 2013/04/11 | 10.08 (Mountain Lion) | ?.? | [xcode?.?-10.08-2013.04.11.dmg](http://adcdownload.apple.com/Developer_Tools/command_line_tools_os_x_mountain_lion_for_xcode__april_2013/xcode462_cltools_10_86938259a.dmg) |
+| 2013/03/14 | 10.08 (Mountain Lion) | ?.? | [xcode?.?-10.08-2013.03.14.dmg](http://adcdownload.apple.com/Developer_Tools/command_line_tools_os_x_mountain_lion_for_xcode__march_2013/xcode461_cltools_10_86938245a.dmg) |
+| 2013/03/14 | 10.07 (Lion) | ?.? | [xcode?.?-10.07-2013.03.14.dmg](http://adcdownload.apple.com/Developer_Tools/command_line_tools_os_x_lion_for_xcode__march_2013/xcode461_cltools_10_76938246a.dmg) |
+| 2013/01/25 | 10.08 (Mountain Lion) | ?.? | [xcode?.?-10.08-2013.01.25.dmg](http://adcdownload.apple.com/Developer_Tools/command_line_tools_os_x_mountain_lion_for_xcode__january_2013/xcode46cltools_10_86938131a.dmg) |
+| 2013/01/25 | 10.07 (Lion) | ?.? | [xcode?.?-10.07-2013.01.25.dmg](http://adcdownload.apple.com/Developer_Tools/command_line_tools_os_x_lion_for_xcode__january_2013/xcode46cltools_10_76938132a.dmg) |
 
 ---
 
