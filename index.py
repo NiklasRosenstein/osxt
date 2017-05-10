@@ -151,7 +151,7 @@ def chown_recurse(path, uid, gid):
             chown_recurse(full, uid, gid)
 
 
-def select_file(files):
+def select_file(files, key=lambda x: x):
     '''
     Lets the user select a file from a list of filenames. Returns
     the selected file. If the user stops the selection, exits
@@ -159,10 +159,10 @@ def select_file(files):
     '''
 
     for i, filename in enumerate(files):
-        print('[%d]' % i, os.path.basename(filename))
+        print('  [%d]' % i, os.path.basename(key(filename)))
 
     while True:
-        string = raw_input('Please choose (empty to quit): ').strip()
+        string = input('> ').strip()
         if not string:
             exit('user stop')
 

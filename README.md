@@ -9,6 +9,19 @@ normally not install on a newer version of macOS.
     $ source ~/Applications/ClTools-8.2/activate
     $ clang --version
 
+## CLI
+
+    Usage: xcode-cltools-installer [OPTIONS] COMMAND [ARGS]...
+
+    Options:
+      --help  Show this message and exit.
+
+    Commands:
+      download    Download a file from the Apple Developer...
+      getpbzx     Checks if pbzx is available, otherwise...
+      getversion  Installs to a temporary directory and outputs...
+      install     Create a local installation of the Mac OS...
+
 ## Installation
 
 1. Make sure you have Python 2 or 3 installed on your system.
@@ -37,6 +50,10 @@ normally not install on a newer version of macOS.
 - [XCode Version Table]
 
 ## Changelog
+
+__v1.0.5__
+
+- Add `download` subcommand
 
 __v1.0.4__
 

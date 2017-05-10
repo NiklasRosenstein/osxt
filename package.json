@@ -10,6 +10,7 @@
   },
   "dependencies": {},
   "python-dependencies": {
-    "click": ">=6.7"
+    "click": ">=6.7",
+    "requests": ">=2.13.0"
   }
 }

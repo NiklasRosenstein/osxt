@@ -196,5 +196,8 @@ def getpbzx():
     pbzx.find_or_install()
 
 
+require('./download')
+
+
 if require.main == module:
   main()
