@@ -4,6 +4,7 @@
   "description": "Install the XCode Command-line Tools from a .dmg image to a directory.",
   "author": "Niklas Rosenstein <rosensteinniklas@gmail.com>",
   "license": "MIT",
+  "repository": "https://github.com/NiklasRosenstein/xcode-cltools-installer",
   "bin": {
     "xcode-cltools-installer": "cli"
   },
