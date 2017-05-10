@@ -51,7 +51,7 @@ normally not install on a newer version of macOS.
 
 | Date YMD | OSX Version | XCode Version | Suggested Image Name | Trunk |
 | -------- | ----------- | ------------- | -------------------- | ----- |
-| 2017/04/18 | ?? | 8.3.2 | [xcode8.3.2-?.?-2017.04.18.dmg](http://adcdownload.apple.com/Developer_Tools/Command_Line_Tools_for_Xcode_8.3.2/CommandLineToolsforXcode8.3.2.dmg) |
+| 2017/04/18 | 10.12 (Sierra) | 8.3.2 (LLVM 8.1.0) | [xcode8.3.2-10.12-2017.04.18.dmg](http://adcdownload.apple.com/Developer_Tools/Command_Line_Tools_for_Xcode_8.3.2/CommandLineToolsforXcode8.3.2.dmg) | clang-802.0.42 |
 | 2017/03/27 | 10.12 (Sierra) | 8.3 | [xcode8.3-10.12-2017.03.27.dmg](http://adcdownload.apple.com/Developer_Tools/Command_Line_Tools_macOS_10.12_for_Xcode_8.3/Command_Line_Tools_macOS_10.12_for_Xcode_8.3.dmg) |
 | 2016/12/13 | 10.12 (Sierra) | 8.2 | [xcode8.2-10.12-2016.12.13.dmg](http://adcdownload.apple.com/Developer_Tools/Command_Line_Tools_macOS_10.12_for_Xcode_8.2/Command_Line_Tools_macOS_10.12_for_Xcode_8.2.dmg) |
 | 2016/12/12 | 10.11 (El Capitan) | 8.2 | [xcode8.2-10.11-2016.12.12.dmg](http://adcdownload.apple.com/Developer_Tools/Command_Line_Tools_macOS_10.11_for_Xcode_8.2/Command_Line_Tools_macOS_10.11_for_Xcode_8.2.dmg) |
