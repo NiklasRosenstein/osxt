@@ -1,6 +1,6 @@
 {
   "name": "xcode-cltools-installer",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Install the XCode Command-line Tools from a .dmg image to a directory.",
   "author": "Niklas Rosenstein <rosensteinniklas@gmail.com>",
   "license": "MIT",
