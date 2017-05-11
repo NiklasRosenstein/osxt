@@ -5,22 +5,10 @@ Tools from a Disk Image File (`.dmg`) to a directory of your choice. This
 gives you access to all available Command-line Tools, even old ones that would
 normally not install on a newer version of macOS.
 
-    $ xcode-cltools-installer install ~/Downloads/xcode8.2-10.12-2016.12.13.dmg ~/Applications/ClTools-8.2
-    $ source ~/Applications/ClTools-8.2/activate
-    $ clang --version
-
-## CLI
-
-    Usage: xcode-cltools-installer [OPTIONS] COMMAND [ARGS]...
-
-    Options:
-      --help  Show this message and exit.
-
-    Commands:
-      download    Download a file from the Apple Developer...
-      getpbzx     Checks if pbzx is available, otherwise...
-      getversion  Installs to a temporary directory and outputs...
-      install     Create a local installation of the Mac OS...
+<img src="http://i.imgur.com/TnlDqiL.png" align="center">
+<img src="http://i.imgur.com/WD2C7kc.png" align="center">
+<img src="http://i.imgur.com/nx6vj6X.png" align="center">
+<img src="http://i.imgur.com/EFfdyaB.png" align="center">
 
 ## Installation
 
@@ -29,8 +17,10 @@ normally not install on a newer version of macOS.
 3. Install [Node.py] via Pip: `sudo pip install node.py`
 4. Install the XCode CLTools Installer via PPYM:
    `ppym install --global xcode-cltools-installer`
-5. Download an XCode Command-line Tools Disk Image File from the
-   [Apple Developer Downloads] (also check the [XCode Version Table] below)
+5. Download an XCode Command-line Tools Disk Image File using either the
+   `download` subcommand or from the [Apple Developer Downloads][] (also
+   check the [XCode Version Table] below) *(Note: Apple ID always required)*
+6. Use the `install <dmg> <install-dir>` command
 
 > **Note**. For XCode Disk Image Files from version 8.0 and higher, [pbzx] is
 > needed and will be downloaded if not available. The location that XCode
@@ -102,7 +92,8 @@ normally not install on a newer version of macOS.
 
 __v1.0.5__
 
-- Add `download` subcommand
+- Add `download` subcommand, allowing you to select the image to download
+- Now requires `prompt_toolkit` (automatically installed)
 - Remove `index:chown_recurse()`
 - Use `chown` command instead of `chown_recurse()`
 - Add `-f` flag when using `rm -r` for the install dest directory

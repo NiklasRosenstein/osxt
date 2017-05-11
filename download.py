@@ -14,11 +14,15 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
+from prompt_toolkit import prompt
+from prompt_toolkit.contrib.completers import WordCompleter
+
 import click
 import getpass
-import requests
+import os
 import posixpath
 import re
+import requests
 import sys
 
 index = require('./index')
@@ -61,49 +65,75 @@ def apple_id_login(session, apple_id, password, getdownloads=False):
   return True
 
 
+def parse_xcode_version_table():
+  """
+  Parses the XCode Version Table in the README.md and returns a list of the
+  available versions.
+  """
+
+  with open(os.path.join(__directory__, 'README.md')) as fp:
+    contents = fp.read()
+
+  begin = contents.find('<!-- XCode Version Table Begin -->')
+  end = contents.find('<!-- XCode Version Table End -->')
+  if begin < 0 or end < 0:
+    raise RuntimeError('could not find XCode Version Table in README.md')
+  contents = contents[begin:end]
+  results = re.findall('\[(xcode(?:[\.\d]+)-.*?.dmg)\]\((.*?)\)', contents)
+  return results
+
+
 @main.command()
 @click.argument('url', required=False)
 def download(url):
   """
-  Download a file from the Apple Developer Downloads Center. If no *url*
-  is specified, a list of the available downloads will be displayed.
+  Download a file from the Apple Developer Downloads Center.
+
+  If URL is specified, it must either be the (partial) name of an XCode
+  Disk Image file as specified in the XCode Version Table in the readme
+  of XCode CLTools Installer, or otherwise a full download URL.
+
+  If URL is not specified, an interactive terminal UI will allow you to
+  select the a version.
   """
+
+  if not url or not url.startswith('http'):
+    versions = parse_xcode_version_table()
+    if url:
+      results = []
+      for v in versions:
+        if v[0].startswith(url):
+          results.append(v)
+      if len(results) == 0:
+        print('error: no versions matching "{}"'.format(url))
+        sys.exit(1)
+      elif len(results) > 1:
+        print('error: multiple versions matching "{}"'.format(url))
+        sys.exit(1)
+      filename, url = results[0]
+    else:
+      choices = [x[0] for x in versions]
+      choice = prompt('Disk Image: ', completer=WordCompleter(choices, sentence=True))
+      if choice not in choices:
+        print('error: invalid selection "{}"'.format(url))
+        sys.exit(1)
+      filename, url = versions[choices.index(choice)]
+  else:
+    filename = posixpath.basename(url)
 
   session = requests.Session()
   apple_id = input('Apple ID: ')
   password = getpass.getpass('Password: ')
 
-  downloads = apple_id_login(session, apple_id, password, getdownloads=not url)
-  if downloads is False:
+  if not apple_id_login(session, apple_id, password):
     print('Login failed.')
     sys.exit(1)
 
-  if not url:
-    # Filter out the XCode Developer Tools.
-    xcode_tools = []
-    for data in sorted(downloads['downloads'], key=lambda x: x['dateCreated']):
-      if 'xcode' not in data['name'].lower(): continue
-      # Find the .dmg image file in the downloadable files.
-      for filedata in data['files']:
-        if '.dmg' in filedata['remotePath']:
-          break
-      else:
-        continue
-      xcode_tools.append({'name': data['name'], 'path': filedata['remotePath']})
-
-    file = index.select_file(xcode_tools, key=lambda x: x['name'])
-    url = 'http://adcdownload.apple.com' + file['path']
-    print('Download URL:', url)
-
   response = session.get(url, stream=True)
-  filename = re.findall("filename=(\S+)", response.headers.get('Content-Disposition', ''))
-  if filename:
-    filename = filename[0]
-  else:
-    filename = posixpath.basename(url)
   size = int(response.headers['Content-Length'])
   bytes_read = 0
 
+  # TODO: Nicer progress bar.
   def update():
     p = float(bytes_read) / size * 100
     print("\rDownloading '{}' ... ({}/{}) {}%".format(filename, bytes_read, size, p), end='')
