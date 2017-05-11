@@ -5,10 +5,14 @@ Tools from a Disk Image File (`.dmg`) to a directory of your choice. This
 gives you access to all available Command-line Tools, even old ones that would
 normally not install on a newer version of macOS.
 
-<img src="http://i.imgur.com/TnlDqiL.png" align="center">
-<img src="http://i.imgur.com/WD2C7kc.png" align="center">
-<img src="http://i.imgur.com/nx6vj6X.png" align="center">
-<img src="http://i.imgur.com/EFfdyaB.png" align="center">
+<table><tr>
+<td>CLI</td><td>Download</td><td>Install</td><td>Usage</td>
+</tr><tr>
+<td><img src="http://i.imgur.com/TnlDqiL.png" align="center"></td>
+<td><img src="http://i.imgur.com/WD2C7kc.png" align="center"></td>
+<td><img src="http://i.imgur.com/nx6vj6X.png" align="center"></td>
+<td><img src="http://i.imgur.com/EFfdyaB.png" align="center"></td>
+</tr></table>
 
 ## Installation
 
