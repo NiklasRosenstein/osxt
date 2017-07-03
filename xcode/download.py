@@ -14,19 +14,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-from prompt_toolkit import prompt
-from prompt_toolkit.contrib.completers import WordCompleter
-
-import click
-import getpass
 import os
-import posixpath
 import re
-import requests
-import sys
-
-index = require('./index')
-main = require('./cli').main
 
 
 def apple_id_login(session, apple_id, password, getdownloads=False):
@@ -81,66 +70,3 @@ def parse_xcode_version_table():
   contents = contents[begin:end]
   results = re.findall('\[(xcode(?:[\.\d]+)-.*?.dmg)\]\((.*?)\)', contents)
   return results
-
-
-@main.command()
-@click.argument('url', required=False)
-def download(url):
-  """
-  Download a file from the Apple Developer Downloads Center.
-
-  If URL is specified, it must either be the (partial) name of an XCode
-  Disk Image file as specified in the XCode Version Table in the readme
-  of XCode CLTools Installer, or otherwise a full download URL.
-
-  If URL is not specified, an interactive terminal UI will allow you to
-  select the a version.
-  """
-
-  if not url or not url.startswith('http'):
-    versions = parse_xcode_version_table()
-    if url:
-      results = []
-      for v in versions:
-        if v[0].startswith(url):
-          results.append(v)
-      if len(results) == 0:
-        print('error: no versions matching "{}"'.format(url))
-        sys.exit(1)
-      elif len(results) > 1:
-        print('error: multiple versions matching "{}"'.format(url))
-        sys.exit(1)
-      filename, url = results[0]
-    else:
-      choices = [x[0] for x in versions]
-      choice = prompt('Disk Image: ', completer=WordCompleter(choices, sentence=True))
-      if choice not in choices:
-        print('error: invalid selection "{}"'.format(url))
-        sys.exit(1)
-      filename, url = versions[choices.index(choice)]
-  else:
-    filename = posixpath.basename(url)
-
-  session = requests.Session()
-  apple_id = input('Apple ID: ')
-  password = getpass.getpass('Password: ')
-
-  if not apple_id_login(session, apple_id, password):
-    print('Login failed.')
-    sys.exit(1)
-
-  response = session.get(url, stream=True)
-  size = int(response.headers['Content-Length'])
-  bytes_read = 0
-
-  # TODO: Nicer progress bar.
-  def update():
-    p = float(bytes_read) / size * 100
-    print("\rDownloading '{}' ... ({}/{}) {}%".format(filename, bytes_read, size, p), end='')
-  update()
-  with open(filename, 'wb') as fp:
-    for data in response.iter_content(4098):
-      bytes_read += len(data)
-      fp.write(data)
-      update()
-  print()

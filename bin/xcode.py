@@ -1,29 +1,38 @@
-# Copyright (C) 2014-2017 Niklas Rosenstein
+# Copyright (c) 2017  Niklas Rosenstein
 #
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or (at
-# your option) any later version.
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
 #
-# This program is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-# General Public License for more details.
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
 #
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
 
-from __future__ import print_function
-from six.moves import input
+from prompt_toolkit import prompt
+from prompt_toolkit.contrib.completers import WordCompleter
+
 import click
+import getpass
 import glob
+import requests
 import os
+import posixpath
 import sys
-
-installer = require('./')
-system = require('./system')
-pbzx = require('./pbzx')
+import {main} from '../bin/main'
+import installer from '../xcode/installer'
+import system from '../xcode/system'
+import pbzx from '../xcode/pbzx'
+import {apple_id_login, parse_xcode_version_table} from '../xcode/download'
 
 
 def exit(*message, **kwargs):
@@ -34,15 +43,16 @@ def exit(*message, **kwargs):
     sys.exit(code)
 
 
-@click.group()
-def main():
+@main.group()
+def xcode():
+    " Download and install XCode CommandLine Tools. "
     pass
 
 
-@main.command()
+@xcode.command()
 @click.argument('dmg')
 @click.argument('dest')
-@click.option('-u', '--user', help='THe name of the user that should be '
+@click.option('-u', '--user', help='The name of the user that should be '
     'granted ownership of the extracted files. This argument should be '
     'specified when running as superuser.')
 @click.option('--debug-pkg', is_flag=True, help='Enter a bash console after '
@@ -166,7 +176,7 @@ def install(dmg, dest, user, debug_pkg):
     return 0
 
 
-@main.command()
+@xcode.command()
 @click.argument('dmg')
 @click.option('-v', '--verbose', is_flag=True)
 def getversion(dmg, verbose):
@@ -187,7 +197,7 @@ def getversion(dmg, verbose):
     system.call(clang_bin, '--version')
 
 
-@main.command()
+@xcode.command()
 def getpbzx():
     """
     Checks if pbzx is available, otherwise download's it from GitHub.
@@ -196,8 +206,64 @@ def getpbzx():
     pbzx.find_or_install()
 
 
-require('./download')
+@xcode.command()
+@click.argument('url', required=False)
+def download(url):
+  """
+  Download a file from the Apple Developer Downloads Center.
 
+  If URL is specified, it must either be the (partial) name of an XCode
+  Disk Image file as specified in the XCode Version Table in the readme
+  of XCode CLTools Installer, or otherwise a full download URL.
 
-if require.main == module:
-  main()
+  If URL is not specified, an interactive terminal UI will allow you to
+  select the a version.
+  """
+
+  if not url or not url.startswith('http'):
+    versions = parse_xcode_version_table()
+    if url:
+      results = []
+      for v in versions:
+        if v[0].startswith(url):
+          results.append(v)
+      if len(results) == 0:
+        print('error: no versions matching "{}"'.format(url))
+        sys.exit(1)
+      elif len(results) > 1:
+        print('error: multiple versions matching "{}"'.format(url))
+        sys.exit(1)
+      filename, url = results[0]
+    else:
+      choices = [x[0] for x in versions]
+      choice = prompt('Disk Image: ', completer=WordCompleter(choices, sentence=True))
+      if choice not in choices:
+        print('error: invalid selection "{}"'.format(url))
+        sys.exit(1)
+      filename, url = versions[choices.index(choice)]
+  else:
+    filename = posixpath.basename(url)
+
+  session = requests.Session()
+  apple_id = input('Apple ID: ')
+  password = getpass.getpass('Password: ')
+
+  if not apple_id_login(session, apple_id, password):
+    print('Login failed.')
+    sys.exit(1)
+
+  response = session.get(url, stream=True)
+  size = int(response.headers['Content-Length'])
+  bytes_read = 0
+
+  # TODO: Nicer progress bar.
+  def update():
+    p = float(bytes_read) / size * 100
+    print("\rDownloading '{}' ... ({}/{}) {}%".format(filename, bytes_read, size, p), end='')
+  update()
+  with open(filename, 'wb') as fp:
+    for data in response.iter_content(4098):
+      bytes_read += len(data)
+      fp.write(data)
+      update()
+  print()
