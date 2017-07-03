@@ -67,16 +67,17 @@ class MountFile(object):
 
     expr = re.compile('\s+(/Volumes/.*)$', re.M | re.I)
 
-    def __init__(self, filename):
+    def __init__(self, filename, args=None):
         super(MountFile, self).__init__()
         self.filename = filename
         self.volume = None
+        self.args = [] if args is None else args
 
     def __enter__(self):
         # Run the hdiutil command to mount the file and determine
         # the Volume at which it was mounted.
         try:
-            output = system.getoutput('hdiutil', 'mount', self.filename)
+            output = system.getoutput('hdiutil', 'mount', self.filename, *self.args)
         except system.ExitError:
             raise RuntimeError("could not found '%s'" % self.filename)
 
