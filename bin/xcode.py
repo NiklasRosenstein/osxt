@@ -163,7 +163,7 @@ def install(dmg, dest, user, debug_pkg):
             installer.install_pkg(pkg, dest)
 
     # Copy the activate script to the destination directory.
-    activate_script = os.path.join(__directory__, 'templates', 'activate')
+    activate_script = os.path.join(__directory__, '../xcode/templates/activate')
     try:
         system.call('cp', activate_script, os.path.join(dest, 'activate'))
     except system.ExitError as exc:
