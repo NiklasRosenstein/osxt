@@ -18,14 +18,12 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-import click
+import {main} from './main'
+import system from  '../xcode/system'
 
-@click.group()
-def main():
+@main.command()
+def osxiso():
+  " Generate a macOS ISO image file. "
+
+  # TODO
   pass
-
-import './osxiso'
-import './xcode'
-
-if require.main == module:
-  main()
