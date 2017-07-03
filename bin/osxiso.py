@@ -65,7 +65,7 @@ def osxiso(installer, output):
   with MountFile(fn, args) as mount:
     filename = '/tmp/' + os.path.basename(output)
     # Create a blank ISO image with a single partition map.
-    system.call('hdiutil', 'create', '-o', filename, '-size', '8g',
+    system.call('hdiutil', 'create', '-o', filename,
       '-layout', 'SPUD', '-fs', 'HFS+J', '-type', 'SPARSE')
     # Mount the sparse bundle for package addition.
     system.call('hdiutil', 'attach', filename + '.sparseimage', '-noverify',
