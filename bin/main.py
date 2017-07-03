@@ -25,6 +25,7 @@ def main():
   pass
 
 import './osxiso'
+import './osxvbm'
 import './xcode'
 
 if require.main == module:

@@ -11,6 +11,11 @@ Unorthodox macOS command-line tools.
 Allows you to build a macOS ISO image file from an OSX installer application
 like "Install macOS Sierra.app". *Based on [fusio71au@insanelymac.com][0]'s work.* 
 
+### `osxvbm` &mdash; Create and/or configure a VirtualBox VM for macOS
+
+Configure a VirtualBox virtual machine for macOS. Can also create a new
+machine and immediately configure it.
+
 ### `xcode` &mdash; Download and install XCode Command-line Tools.
 
 Allows you to download and install any XCode Command-line Tools. Check out
