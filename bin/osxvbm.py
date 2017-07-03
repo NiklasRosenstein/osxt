@@ -67,6 +67,8 @@ def manage(*args, **kwargs):
     '1024x768, 1280x1024, 1440x900 and 1920x1200 respectively. If --new is '
     'used, a default value of 4 is used (1440x900).')
 def osxvbm(vm, new, all, storage, image, general, device, device_serial, cpu, resolution):
+  " Create and/or manage VirtualBox OSX VMs. "
+
   if device and device not in device_serials and not device_serial:
     print('error: unknown device: {!r}')
     print('error: add --device-serial to manually specify the serial number')

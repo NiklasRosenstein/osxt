@@ -108,7 +108,12 @@ normally not install on a newer version of macOS.
 
 ## Changelog
 
+__v1.0.6__
+
 - Merged into [osxt](https://github.com/NiklasRosenstein/osxt)
+- Add `download -l,--list --show-url` options
+- Use `requests` module instead of `urllib.request` to download pbzx
+- XCode CLTools `activate` script now adds a `deactivate-xcode` function
 
 __v1.0.5__
 
