@@ -208,7 +208,13 @@ def getpbzx():
 
 @xcode.command()
 @click.argument('url', required=False)
-def download(url):
+@click.option('-l', '--list', is_flag=True, help='List the downloads available '
+  'from the XCode Version Table that can be found in the README and exit. If '
+  'the URL argument is specified, only results that contain the URL string '
+  'will be printed.')
+@click.option('--show-url', is_flag=True, help='Show the download URL when '
+  'listing available versions.')
+def download(url, list, show_url):
   """
   Download a file from the Apple Developer Downloads Center.
 
@@ -220,18 +226,33 @@ def download(url):
   select the a version.
   """
 
+  if list:
+    versions = parse_xcode_version_table()
+    for version in versions:
+        if url and url not in version[0]:
+            continue
+        if show_url:
+            print(version[0], '{' + version[1] + '}')
+        else:
+            print(version[0])
+    return
+
   if not url or not url.startswith('http'):
     versions = parse_xcode_version_table()
     if url:
       results = []
       for v in versions:
-        if v[0].startswith(url):
+        if url in v[0]:
           results.append(v)
       if len(results) == 0:
         print('error: no versions matching "{}"'.format(url))
         sys.exit(1)
       elif len(results) > 1:
         print('error: multiple versions matching "{}"'.format(url))
+        for v in results[:5]:
+            print('  -', v[0])
+        if len(results) > 5:
+            print('  - ...')
         sys.exit(1)
       filename, url = results[0]
     else:
