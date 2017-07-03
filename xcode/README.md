@@ -1,9 +1,25 @@
 # XCode Command-line Tools Installer
 
-The `xcode-cltools-installer` allows you to install the XCode Command-line
+This application allows you to download and install the XCode Command-line
 Tools from a Disk Image File (`.dmg`) to a directory of your choice. This
 gives you access to all available Command-line Tools, even old ones that would
 normally not install on a newer version of macOS.
+
+    >_ osxt xcode
+    Usage: osxt xcode [OPTIONS] COMMAND [ARGS]...
+
+      Download and install XCode CommandLine Tools.
+
+    Options:
+      --help  Show this message and exit.
+
+    Commands:
+      download    Download a file from the Apple Developer...
+      getpbzx     Checks if pbzx is available, otherwise...
+      getversion  Installs to a temporary directory and outputs...
+      install     Create a local installation of the Mac OS...
+
+---
 
 <table><tr>
 <td>CLI</td><td>Download</td><td>Install</td><td>Usage</td>
@@ -14,17 +30,15 @@ normally not install on a newer version of macOS.
 <td><img src="http://i.imgur.com/EFfdyaB.png" align="center"></td>
 </tr></table>
 
-## Installation
+---
 
-1. Make sure you have Python 2 or 3 installed on your system.
-2. Make sure you have [Pip] installed, otherwise run [get-pip.py].
-3. Install [Node.py] via Pip: `sudo pip install node.py`
-4. Install the XCode CLTools Installer via PPYM:
-   `ppym install --global xcode-cltools-installer`
-5. Download an XCode Command-line Tools Disk Image File using either the
-   `download` subcommand or from the [Apple Developer Downloads][] (also
-   check the [XCode Version Table] below) *(Note: Apple ID always required)*
-6. Use the `install <dmg> <install-dir>` command
+## Usage
+
+1. Install **osxt** with [Node.py]
+2. Download an XClode CLTools image from the [Apple Developer Downloads] page
+   or use the `osxt xcode download` command (check the [XCode Version Table]
+   below).
+3. Use the `osxt xcode install` command.
 
 > **Note**. For XCode Disk Image Files from version 8.0 and higher, [pbzx] is
 > needed and will be downloaded if not available. The location that XCode
@@ -94,6 +108,8 @@ normally not install on a newer version of macOS.
 
 ## Changelog
 
+- Merged into [osxt](https://github.com/NiklasRosenstein/osxt)
+
 __v1.0.5__
 
 - Add `download` subcommand, allowing you to select the image to download
@@ -136,4 +152,3 @@ __v1.0.0__
 ---
 
 <p align="center"><i>Copyright (C) 2014-2017 Niklas Rosenstein</i></p>
-
