@@ -1,4 +1,5 @@
 _download/
 test/
 dist/
+.nodepy/
 *.pyc

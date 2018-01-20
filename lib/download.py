@@ -64,7 +64,7 @@ def parse_xcode_version_table():
   available versions.
   """
 
-  with open(os.path.join(__directory__, 'README.md')) as fp:
+  with module.package.directory.joinpath('README.md').open() as fp:
     contents = fp.read()
 
   begin = contents.find('<!-- XCode Version Table Begin -->')

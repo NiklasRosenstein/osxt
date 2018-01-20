@@ -18,15 +18,27 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-import click
+from __future__ import print_function
+import os
+import requests
+import six
+import zipfile
+import system from './system'
 
-@click.group()
-def main():
-  pass
+url = 'https://github.com/NiklasRosenstein/pbzx/releases/download/v1.0.2/pbzx-1.0.2.zip'
 
-import './osxiso'
-import './osxvbm'
-import './xcode'
+def find_or_install():
+  download_dir = str(module.directory.joinpath('_download'))
+  os.environ['PATH'] = download_dir + os.pathsep + os.environ['PATH']
+  try:
+    version = system.getoutput('pbzx', '-v')
+    return
+  except (OSError, system.ExitError) as exc:
+    pass
 
-if require.main == module:
-  main()
+  print('pbzx not available, downloading from', url, '...')
+  fp = six.BytesIO(requests.get(url).content)
+  archive = zipfile.ZipFile(fp)
+  archive.extract('pbzx', download_dir)
+  system.call('chmod', '+x', os.path.join(download_dir, 'pbzx'))
+  system.getoutput('pbzx', '-v')

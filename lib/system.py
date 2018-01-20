@@ -27,6 +27,7 @@ import sys
 #: True if verbose output is desired.
 verbose = True
 
+
 class ExitError(Exception):
 
     def __init__(self, args, code):

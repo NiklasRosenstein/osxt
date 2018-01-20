@@ -1,0 +1,2 @@
+tag v{VERSION}
+upgrade nodepy.json:  "version": "{VERSION}"

@@ -18,7 +18,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-import click
 import glob
 import os
 import re
@@ -28,7 +27,7 @@ import subprocess
 import sys
 import tempfile
 
-system = require('./system')
+import system from './system'
 
 
 class TempDir(object):
@@ -183,6 +182,7 @@ def detect_packages(directory):
     # required files using regular expressions.
     return glob.glob(os.path.join(directory, '*.pkg'))
 
+
 def unpack_pkg(pkg_filename, dest):
     '''
     Unpacks the contents of a ``*.pkg`` file to the specified
@@ -190,6 +190,7 @@ def unpack_pkg(pkg_filename, dest):
     '''
 
     system.call('xar', '-C', dest, '-xf', pkg_filename)
+
 
 def install_pkg(pkg_filename, dest):
     '''
