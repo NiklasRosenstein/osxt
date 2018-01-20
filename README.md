@@ -1,27 +1,6 @@
 # osxt
 
-### `osxt xcode`
-
-1. Install **osxt** with [Node.py]
-2. Download an XClode CLTools image from the [Apple Developer Downloads] page
-   or use the `osxt xcode download` command (check the [XCode Version Table]
-   below).
-3. Use the `osxt xcode install` command.
-
-> **Note**. For XCode Disk Image Files from version 8.0 and higher, [pbzx] is
-> needed and will be downloaded if not available. The location that XCode
-> CLTools Installer will be installed to via PPYM must be writable by the user
-> running it (which it usually is when using `--global`) or otherwise
-> `xcode-cltools-installer getpbzx` needs to be called by the user that
-> installed it with `--root`.
-
-  [Node.py]: https://github.com/nodepy/nodepy
-  [pbzx]: https://github.com/NiklasRosenstein/pbzx
-  [Pip]: https://github.com/pypa/pip
-  [get-pip.py]: https://bootstrap.pypa.io/get-pip.py
-  [Apple Developer Downloads]: https://developer.apple.com/downloads/index.action
-  [XCode Version Table]: #xcode-version-table
-  [Changelog]: #changelog
+> `usage: osxt.exe [-h] {mkiso,vbx,vbm,xcode,getpbzx} ...`
 
 ### XCode Version Table
 
