@@ -2,11 +2,19 @@
   "name": "@NiklasRosenstein/osxt",
   "version": "1.0.0",
   "license": "MIT",
-  "authors": ["rosensteinniklas@gmail.com"],
+  "authors": [
+    "rosensteinniklas@gmail.com"
+  ],
   "description": "Install arbitrary XCode command-line tools, generate macOS ISO's and set-up an OSX VirtualBox machine.",
-  "bin": { "osxt": "lib/main.py" },
+  "bin": {
+    "osxt": "lib/main.py"
+  },
   "python-dependencies": {
     "prompt_toolkit": ">=1.0.14",
     "requests": ">=2.13.0"
+  },
+  "pip_dependencies": {
+    "bs4": ">=0.0.1",
+    "html5lib": ">=0.999999999"
   }
 }

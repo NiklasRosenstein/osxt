@@ -19,6 +19,7 @@
 # THE SOFTWARE.
 
 import argparse
+import bs4, html5lib
 import os
 import sys
 
@@ -97,6 +98,7 @@ xcode_download_parser.add_argument('url', nargs='?')
 xcode_download_parser.add_argument('-l', '--list', action='store_true', help='List the downloads available from the XCode Version Table in the osxt README. '
     'If the URL argument is specified, only results that contain the URL string will be printed.')
 xcode_download_parser.add_argument('--show-url', action='store_true', help='Print the download URL when using the --list option.')
+xcode_download_parser.add_argument('--apple-id', help='You\'re Apple ID. Will be prompted if not specified.')
 
 getpbzx_parser = subparsers.add_parser('getpbzx', description='''
   Checks if the pbzx command-line tool is available. If it is not, it will be
@@ -392,7 +394,7 @@ def xcode_install(args):
       installer.install_pkg(pkg, dest)
 
   # Copy the activate script to the destination directory.
-  activate_script = str(module.directory.joinpath('../xcode/templates/activate'))
+  activate_script = str(module.directory.joinpath('../templates/activate'))
   try:
     system.call('cp', activate_script, os.path.join(dest, 'activate'))
   except system.ExitError as exc:
@@ -422,8 +424,12 @@ def xcode_getversion(args):
 
 def xcode_download(args):
   import {apple_id_login, parse_xcode_version_table} from './download'
+  from prompt_toolkit import prompt
+  from prompt_toolkit.contrib.completers import WordCompleter
+
   url = args.url
   list = args.list
+  apple_id = args.apple_id
   show_url = args.show_url
 
   if list:
@@ -466,7 +472,7 @@ def xcode_download(args):
     filename = posixpath.basename(url)
 
   session = requests.Session()
-  apple_id = input('Apple ID: ')
+  apple_id = apple_id or input('Apple ID: ')
   password = getpass.getpass('Password: ')
 
   if not apple_id_login(session, apple_id, password):
@@ -474,13 +480,24 @@ def xcode_download(args):
     sys.exit(1)
 
   response = session.get(url, stream=True)
-  size = int(response.headers['Content-Length'])
+  response.raise_for_status()
+  if 'Content-Length' in response.headers:
+    size = int(response.headers['Content-Length'])
+  else:
+    size = None
   bytes_read = 0
+
+  if response.headers['Content-Type'] == 'text/html':
+    soup = bs4.BeautifulSoup(response.content, 'html5lib')
+    print(soup.find(id='content'))
+    return 1
 
   # TODO: Nicer progress bar.
   def update():
-    p = float(bytes_read) / size * 100
-    print("\rDownloading '{}' ... ({}/{}) {}%".format(filename, bytes_read, size, p), end='')
+    print('\rDownloading \'{}\' ... ({}/{})'.format(filename, bytes_read, size), end='')
+    if size:
+      p = float(bytes_read) / size * 100
+      print(' {}%'.format(p), end='')
   update()
   with open(filename, 'wb') as fp:
     for data in response.iter_content(4098):
