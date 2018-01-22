@@ -100,11 +100,6 @@ xcode_download_parser.add_argument('-l', '--list', action='store_true', help='Li
 xcode_download_parser.add_argument('--show-url', action='store_true', help='Print the download URL when using the --list option.')
 xcode_download_parser.add_argument('--apple-id', help='You\'re Apple ID. Will be prompted if not specified.')
 
-getpbzx_parser = subparsers.add_parser('getpbzx', description='''
-  Checks if the pbzx command-line tool is available. If it is not, it will be
-  downloded from GitHub.
-''')
-
 
 def mkiso(args):
   import re
@@ -517,10 +512,6 @@ def main(argv=None):
     return vbmanage(*args.argv)
   elif args.command == 'xcode':
     return xcode(args)
-  elif args.command == 'getpbzx':
-    import pbzx from './pbzx'
-    pbzx.find_or_install()
-    return 0
   else:
     parser.print_usage()
     return 0
