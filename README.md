@@ -112,6 +112,10 @@ optional arguments:
 
 ### xcode download
 
+__Important__: Note that your account must be enrolled in the Apple Developer
+program, have accepted the most recent terms of use and probably have 2Factor
+Authentication enabled.
+
 ```
 usage: osxt xcode download [-h] [-l] [--show-url] [--apple-id APPLE_ID] [url]
 
